@@ -7,11 +7,15 @@ import sk.stuba.fei.asos.schedule.Schedule;
 import sk.stuba.fei.asos.schedule.Timeslot;
 
 public class FacadeFactory {
-    public static Facade defaultFacade() {
 
-        final CourseDirectory root;
-        final Schedule schedule = new Schedule();
-        final CourseFactory factory = new CourseFactory();
+    private static CourseDirectory root = null;
+    private static  Schedule schedule = null;
+    private static CourseFactory factory = null;
+
+    public static void setDefaults() {
+
+        schedule = new Schedule();
+        factory = new CourseFactory();
 
         schedule.add("ASOS", "Kossaczký", new Timeslot(Day.TUE, 2), false, factory);
         schedule.add("ASOS", "Marochok", new Timeslot(Day.THU, 3), true, factory);
@@ -33,8 +37,26 @@ public class FacadeFactory {
         graduate.add(first_year);
         graduate.add(second_year);
         root.add(graduate);
-        // System.out.println(root.getInfo());
+    }
 
-        return new Facade(root, schedule, factory);
+    public static CourseDirectory getDefaultCourseDirectory() {
+        if (root == null) {
+            setDefaults();
+        }
+        return root;
+    }
+
+    public static Schedule getDefaultSchedule() {
+        if (schedule == null) {
+            setDefaults();
+        }
+        return schedule;
+    }
+
+    public static CourseFactory getDefaultFactory() {
+        if (factory == null) {
+            setDefaults();
+        }
+        return factory;
     }
 }

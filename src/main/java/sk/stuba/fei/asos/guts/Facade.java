@@ -6,12 +6,14 @@ import sk.stuba.fei.asos.schedule.Schedule;
 import sk.stuba.fei.asos.schedule.Timeslot;
 
 public class Facade {
+
+    private static Facade instance = null;
     private final CourseDirectory root;
     private final Schedule schedule;
 
     private final CourseFactory factory;
 
-    public Facade(CourseDirectory root, Schedule schedule, CourseFactory factory) {
+    private Facade(CourseDirectory root, Schedule schedule, CourseFactory factory) {
         if (root == null || schedule == null || factory == null) {
             throw new IllegalArgumentException();
         }
@@ -36,5 +38,11 @@ public class Facade {
         schedule.add(courseName, teacherName, timeslot, true, factory);
     }
 
+    public static Facade getInstance() {
+        if (instance == null) {
+            instance = new Facade(FacadeFactory.getDefaultCourseDirectory(), FacadeFactory.getDefaultSchedule(), FacadeFactory.getDefaultFactory());
+        }
+        return instance;
+    }
 
 }

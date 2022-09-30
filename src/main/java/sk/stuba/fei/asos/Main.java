@@ -7,11 +7,10 @@ import sk.stuba.fei.asos.guts.FacadeFactory;
 
 public class Main {
     public static void main(String[] args) {
-        Facade facade = FacadeFactory.defaultFacade();
-        TuiApplication tui = new TuiApplication(facade);
-        tui.run();
-        // GuiApplication gui = new GuiApplication(facade);
-        // gui.run();
+        // TuiApplication tui = new TuiApplication(Facade.getInstance());
+        // tui.run();
+        GuiApplication gui = new GuiApplication(Facade.getInstance());
+        gui.run();
 
         // System.out.println(facade.getSchedule());
     }
